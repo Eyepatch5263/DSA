@@ -114,6 +114,56 @@ void deleteAtPos(Node* &head, Node* &tail, int pos){
     free(curr);
 }
 
+void reverse(Node* &head){
+    Node* prev=NULL;
+    Node* curr=head;
+    Node* next;
+    while(curr!=NULL){
+        next=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    head=prev;
+}
+
+int middleNode(Node* head){
+    Node*slow=head;
+    Node* fast=head;
+    while(fast!=NULL && fast->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
+    }
+    
+    return slow->data;
+}
+
+void deleteMiddleNode(Node* &head){
+    Node* slow=head;
+    Node* fast=head;
+    Node* pre=head;
+    while(fast!=NULL && fast->next!=NULL){
+        fast=fast->next->next;
+        pre=slow;
+        slow=slow->next;
+    }
+    pre->next=slow->next;
+}
+
+void removeDuplicate(Node* head){
+    Node* temp=head;
+    while(temp->next!=NULL){
+        if(temp->next!=NULL && temp->data==temp->next->data){
+            Node* next_next=temp->next->next;
+            Node* nodeToDel=temp->next;
+            free(nodeToDel);
+            temp->next=next_next;
+        }
+        temp=temp->next;
+    }
+    PrintNode(head);
+}
+
 
 int main(){
     Node *node1=new Node(10);
@@ -123,16 +173,26 @@ int main(){
     insertAtEnd(tail,20);
     PrintNode(head);
     insertAtEnd(tail,30);
+    insertAtEnd(tail,30);
     PrintNode(head);
-    insertAtPos(head,tail,80,4);
+    // insertAtPos(head,tail,40,4);
+    // PrintNode(head);
+    insertAtBeg(head,10);
+    insertAtBeg(head,10);
     PrintNode(head);
+    // reverse(head);
+    // PrintNode(head);
+    
+    // int midData=middleNode(head);
+    // cout<<midData;
     // deleteFromStart(head);
     // PrintNode(head);
     // deleteFromEnd(head,tail);
     // PrintNode(head);
-    deleteAtPos(head,tail,4);
-    PrintNode(head);
-    cout<<"head: "<<head->data<<endl;
-    cout<<"tail: "<<tail->data<<endl;
+    // deleteAtPos(head,tail,4);
+    // PrintNode(head);
+    // cout<<"head: "<<head->data<<endl;
+    // cout<<"tail: "<<tail->data<<endl;
+    removeDuplicate(head);
     return 0;
 }

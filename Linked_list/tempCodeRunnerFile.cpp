@@ -1,3 +1,2 @@
-if(pos==0){
-    //     insertAtBeg(head,data);
-    // }
+insertAtPos(head,tail,40,4);
+    // PrintNode(head);
